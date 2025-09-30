@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mcp-beat-manipulator:
+    build: .
+    container_name: mcp-beat-manipulator
+    volumes:
+      - ./audio/input:/app/audio/input
+      - ./audio/output:/app/audio/output
+      - ./audio/cache:/app/audio/cache
+    environment:
+      - PYTHONPATH=/app
+      - MCP_LOG_LEVEL=INFO
+    ports:
+      - "8080:8080"  # Optional for HTTP transport
+    restart: unless-stopped
+    
+networks:
+  default:
+    name: mcp-network

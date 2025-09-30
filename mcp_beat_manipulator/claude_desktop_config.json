@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "beat-manipulator": {
+      "command": "python",
+      "args": [
+        "/absolute/path/to/mcp_beat_manipulator_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/path/to/beat-manipulator:/path/to/mcp-beat-manipulator",
+        "MCP_LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}

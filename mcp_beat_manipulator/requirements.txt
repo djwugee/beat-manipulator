@@ -1,0 +1,29 @@
+# MCP SDK
+mcp>=0.1.0
+
+# Core audio processing (from original beat-manipulator)
+cython>=0.29.0
+mido>=1.2.0
+numpy>=1.21.0
+scipy>=1.7.0
+pytest>=6.0.0
+pyfftw>=0.12.0
+soundfile>=0.10.0
+ffmpeg-python>=0.2.0
+librosa>=0.8.0
+pedalboard>=0.5.0
+opencv-python>=4.5.0
+
+# Madmom for beat detection (install from git)
+# git+https://github.com/CPJKU/madmom
+
+# Additional MCP dependencies
+asyncio-mqtt>=0.11.0
+pydantic>=1.8.0
+typing-extensions>=4.0.0
+
+# Development dependencies (optional)
+pytest-asyncio>=0.21.0
+black>=22.0.0
+flake8>=4.0.0
+mypy>=0.950
