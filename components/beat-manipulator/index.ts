@@ -1,0 +1,7 @@
+export { WaveformDisplay } from "./waveform-display"
+export { TransportControls } from "./transport-controls"
+export { PatternEditor } from "./pattern-editor"
+export { PresetSelector } from "./preset-selector"
+export { FileUpload } from "./file-upload"
+export { BeatInfoPanel } from "./beat-info-panel"
+export { BeatGrid } from "./beat-grid"
