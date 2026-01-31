@@ -192,7 +192,7 @@ export default function BeatManipulatorApp() {
                       isPlaying={processing.isPlaying}
                     />
                   </TabsContent>
-                </Tabs>
+                </CardContent>
               </Tabs>
             </Card>
           </div>
