@@ -559,23 +559,24 @@ export function trimSilence(samples: Float32Array[], threshold = 0.001): Float32
 }
 
 // Effect registry for pattern parser
-export const effectRegistry: Record<string, EffectFunction> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const effectRegistry: Record<string, (samples: Float32Array[], sampleRate: number, ...args: any[]) => Float32Array[]> = {
   r: (s) => reverse(s),
-  v: (s, sr, gain = 1) => volume(s, gain),
-  s: (s, sr, factor = 1) => speed(s, factor),
-  d: (s, sr, factor = 2) => downsample(s, factor),
-  b: (s, sr, bits = 8) => bitcrush(s, bits),
-  g: (s, sr, startVol = 0, endVol = 1) => gradient(s, startVol, endVol),
-  c: (s, sr, mode = 0) => channel(s, mode),
+  v: (s, _sr, gain = 1) => volume(s, gain),
+  s: (s, _sr, factor = 1) => speed(s, factor),
+  d: (s, _sr, factor = 2) => downsample(s, factor),
+  b: (s, _sr, bits = 8) => bitcrush(s, bits),
+  g: (s, _sr, startVol = 0, endVol = 1) => gradient(s, startVol, endVol),
+  c: (s, _sr, mode = 0) => channel(s, mode),
   fi: (s) => fadeIn(s),
   fo: (s) => fadeOut(s),
   delay: (s, sr, time = 0.25, fb = 0.5, wet = 0.3) => delay(s, sr, time, fb, wet),
   reverb: (s, sr, size = 0.5, damp = 0.5, wet = 0.3) => reverb(s, sr, size, damp, wet),
-  dist: (s, sr, amount = 50) => distortion(s, amount),
+  dist: (s, _sr, amount = 50) => distortion(s, amount),
   lp: (s, sr, cutoff = 1000) => lowpass(s, sr, cutoff),
   hp: (s, sr, cutoff = 200) => highpass(s, sr, cutoff),
   stutter: (s, sr, len = 0.05, reps = 4) => stutter(s, sr, len, reps),
-  gate: (s, sr, thresh = 0.1) => gate(s, thresh),
+  gate: (s, _sr, thresh = 0.1) => gate(s, thresh),
   norm: (s) => normalize(s),
   trim: (s) => trimSilence(s),
 }

@@ -1,3 +1,5 @@
+"use client"
+
 export { WaveformDisplay } from "./waveform-display"
 export { TransportControls } from "./transport-controls"
 export { PatternEditor } from "./pattern-editor"

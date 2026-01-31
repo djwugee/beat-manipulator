@@ -4,15 +4,12 @@
  */
 
 // Core audio engine
-export { AudioEngine, audioEngine, type AudioData, type BeatInfo } from "./audio-engine"
+export { AudioEngine, audioEngine } from "./audio-engine"
+export type { AudioData, BeatInfo } from "./audio-engine"
 
 // Beat detection
-export {
-  BeatDetector,
-  beatDetector,
-  type BeatDetectionOptions,
-  type BeatMap,
-} from "./beat-detector"
+export { BeatDetector, beatDetector } from "./beat-detector"
+export type { BeatDetectionOptions, BeatMap } from "./beat-detector"
 
 // Effects
 export {
@@ -36,26 +33,16 @@ export {
   gate,
   normalize,
   trimSilence,
-  type EffectFunction,
 } from "./effects"
+export type { EffectFunction } from "./effects"
 
 // Pattern parsing
-export {
-  PatternParser,
-  patternParser,
-  PRESET_PATTERNS,
-  type ParsedSegment,
-  type EffectSpec,
-  type PatternToken,
-} from "./pattern-parser"
+export { PatternParser, patternParser, PRESET_PATTERNS } from "./pattern-parser"
+export type { ParsedSegment, EffectSpec, PatternToken } from "./pattern-parser"
 
 // Beatswap engine
-export {
-  BeatswapEngine,
-  beatswapEngine,
-  type BeatswapOptions,
-  type LoadedSample,
-} from "./beatswap"
+export { BeatswapEngine, beatswapEngine } from "./beatswap"
+export type { BeatswapOptions, LoadedSample } from "./beatswap"
 
 // Export utilities
 export {
@@ -67,5 +54,5 @@ export {
   formatDuration,
   formatFileSize,
   estimateFileSize,
-  type ExportOptions,
 } from "./export"
+export type { ExportOptions } from "./export"
