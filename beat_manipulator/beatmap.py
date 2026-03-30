@@ -81,7 +81,7 @@ def generate(audio: np.ndarray, sr: int, lib='madmom.BeatDetectionProcessor', ca
         if 'madmom' in lib.lower():
             from collections.abc import MutableMapping, MutableSequence
             import madmom
-            assert len(audio[0])>sr*2, f'Audio file is too short, len={len(audio[0])} samples, or {len(audio[0])/sr} seconds. Minimum length is 2 seconds, audio below that breaks madmom processors.'
+            assert len(audio[0])>=sr*2, f'Audio file is too short, len={len(audio[0])} samples, or {len(audio[0])/sr} seconds. Minimum length is 2 seconds, audio below that breaks madmom processors.'
         if lib=='madmom.BeatTrackingProcessor':
             proc = madmom.features.beats.BeatTrackingProcessor(fps=100)
             act = madmom.features.beats.RNNBeatProcessor()(madmom.audio.signal.Signal(audio.T, sr))

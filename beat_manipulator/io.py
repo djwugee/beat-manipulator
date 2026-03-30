@@ -19,7 +19,8 @@ def open_audio(path:str = None, lib:str = 'auto', normalize = True) -> tuple:
         from tkinter.filedialog import askopenfilename
         path = askopenfilename(title='select song', filetypes=[("mp3", ".mp3"),("wav", ".wav"),("flac", ".flac"),("ogg", ".ogg"),("wma", ".wma")])
     
-    path=path.replace('\\', '/')
+    if isinstance(path, str):
+        path=path.replace('\\', '/')
 
     if lib=='pedalboard.io':
         import pedalboard.io
@@ -52,6 +53,7 @@ def open_audio(path:str = None, lib:str = 'auto', normalize = True) -> tuple:
     elif lib=='auto':
         for i in ('madmom', 'soundfile', 'librosa', 'pedalboard.io'):
             try: 
+                if hasattr(path, 'seek'): path.seek(0)
                 audio,sr=open_audio(path, i)
                 break
             except Exception as e:
@@ -101,8 +103,8 @@ def _iterable(a):
 
 def _load(audio, sr:int = None, lib:str = 'auto', channels:int = 2, transpose3D:bool = False) -> tuple:
     """Automatically converts audio from path or any format to [[...],[...]] array. Returns (audio, samplerate) tuple."""
-    # path
-    if isinstance(audio, str): return(open_audio(path=audio, lib=lib))
+    # path or file-like object
+    if isinstance(audio, str) or hasattr(audio, 'read'): return(open_audio(path=audio, lib=lib))
     # array
     if _iterable(audio):
         if isinstance(audio, main.song):

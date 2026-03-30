@@ -18,6 +18,8 @@ class song:
         # unique filename is needed to generate/compare filenames for cached beatmaps
         if isinstance(audio, str):
             self.path = audio
+        elif hasattr(audio, 'name') and isinstance(audio.name, str) and ('.' in audio.name):
+            self.path = audio.name
         elif not isinstance(audio, song):
             self.path = f'unknown_{hex(int(np.sum(self.audio) * 10**18))}'
 

@@ -41,7 +41,8 @@ def BeatSwap(audiofile, pattern='test', scale=1, shift=0, caching=True, variable
     except Exception as e:
         st.write(f'Reducing audio size failed, why? {e}')
     lib = 'madmom.BeatDetectionProcessor' if variableBPM is False else 'madmom.BeatTrackingProcessor'
-    song.path = '.'.join(song.path.split('.')[:-1])[:-8] + '.' + song.path.split('.')[-1]
+    if len(song.path) > 8 and song.path[-8:] == 'unknown_': # this logic seems specific to some naming convention in the original app
+         song.path = '.'.join(song.path.split('.')[:-1])[:-8] + '.' + song.path.split('.')[-1]
     st.write(f'path: {song.path}')
     st.write('Generating beatmap...')
     song.beatmap_generate(lib=lib, caching=caching)
