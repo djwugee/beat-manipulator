@@ -7,6 +7,9 @@ presets = {}
 def presets_load(path, mode = 'add'):
     global presets
     import yaml
+    import os
+    if not os.path.isabs(path):
+        path = os.path.normpath(os.path.join(os.path.dirname(__file__), '..', path))
     with open(path, 'r') as f:
         yaml_presets = yaml.safe_load(f.read())
     

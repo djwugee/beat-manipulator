@@ -9,4 +9,6 @@ ffmpeg-python
 librosa
 pedalboard
 opencv-python
+PyYAML
+streamlit
 git+https://github.com/CPJKU/madmom
