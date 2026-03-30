@@ -3,6 +3,23 @@ import numpy as np
 import beat_manipulator as bm
 import cv2
 
+
+def _prepare_image_for_streamlit(image: np.ndarray) -> np.ndarray:
+    """Convert generated image to uint8 RGB so Streamlit can render safely."""
+    if image is None:
+        return image
+    image_array = np.asarray(image)
+    if image_array.dtype != np.uint8:
+        min_value = float(np.min(image_array))
+        max_value = float(np.max(image_array))
+        if max_value > min_value:
+            image_array = (image_array - min_value) / (max_value - min_value)
+        else:
+            image_array = np.zeros_like(image_array, dtype=np.float32)
+        image_array = (image_array * 255).clip(0, 255).astype(np.uint8)
+    return image_array
+
+
 def BeatSwap(audiofile, pattern='test', scale=1, shift=0, caching=True, variableBPM=False):
     st.write(f'path = {audiofile}, pattern = "{pattern}", scale = {scale}, shift = {shift}, caching = {caching}, variable BPM = {variableBPM}')
     if pattern == '' or pattern is None:
@@ -55,9 +72,10 @@ def BeatSwap(audiofile, pattern='test', scale=1, shift=0, caching=True, variable
         y = min(len(image), len(image[0]), 2048)
         y = max(y, 2048)
         image = np.rot90(np.clip(cv2.resize(image, (y, y), interpolation=cv2.INTER_NEAREST), -1, 1))
+        image = _prepare_image_for_streamlit(image)
     except Exception as e:
         st.write(f'Image generation failed: {e}')
-        image = np.asarray([[0.5, -0.5], [-0.5, 0.5]])
+        image = _prepare_image_for_streamlit(np.asarray([[0.5, -0.5], [-0.5, 0.5]]))
     st.write('Beatswapping...')
     song.beatswap(pattern=pattern, scale=1, shift=0)
     song.audio = (np.clip(np.asarray(song.audio), -1, 1) * 32766).astype(np.int16).T
@@ -78,4 +96,4 @@ if st.button("Run BeatSwap"):
     if audio is not None:
         st.audio(audio.tobytes(), format="audio/wav", start_time=0)
     if image is not None:
-        st.image(image, caption="Generated Image", use_column_width=True)
+        st.image(image, caption="Generated Image", width="stretch")
